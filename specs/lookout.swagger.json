@@ -1,0 +1,181 @@
+{
+  "basePath": "/lookout",
+  "host": "localhost:5273",
+  "schemes": ["http"],
+  "info": {
+    "description": "Conference planning",
+    "title": "Lookout",
+    "version": "1.0",
+  },
+  "paths": {
+    "/meeting/": {
+      "get": {
+        "description": "Returns the list of meetings at the conference.",
+        "operationId": "getAllMeetings",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/Meeting"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "x-ISC_CORS": true,
+        "produces":["application/json"],
+        "summary": "List of meetings"
+      },
+      "post": {
+        "description": "Create a new meeting.",
+        "operationId": "newMeeting",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meeting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "items": {},
+              "type": "array"
+            }
+          }
+        },
+        "x-ISC_CORS": true,
+        "produces":["application/json"],
+        "consumes":["application/json"],
+        "summary": "Create new meeting"
+      }
+    },
+    "/meeting/{meetingId}": {
+      "get": {
+        "description": "Returns the details for a particular meeting.",
+        "operationId": "getMeeting",
+        "parameters": [
+            {
+              "description": "Meeting id to view",
+              "in": "path",
+              "name": "meetingId",
+              "required": true,
+              "type": "string"
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Meeting"
+            }
+          }
+        },
+        "x-ISC_CORS": true,
+        "produces": ["application/json"],
+        "summary": "Detail for specified meeting"
+      },
+      "put": {
+        "description": "Update an existing meeting.",
+        "operationId": "updateMeeting",
+        "parameters": [
+          {
+            "description": "Meeting id",
+            "in": "path",
+            "name": "meetingId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meeting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "items": {},
+              "type": "array"
+            }
+          }
+        },
+        "x-ISC_CORS": true,
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "summary": "Update existing meeting"
+      }
+    }
+  },
+  "definitions": {
+    "Room": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "capacity": {
+          "type": "integer"
+        }
+      }
+    },
+    "Meeting": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "host": {
+          "$ref": "#/definitions/Person"
+        },
+        "date": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "room": {
+          "$ref": "#/definitions/Room"
+        },
+        "attendees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Person"
+          }
+        },
+      },
+      "type": "object"
+    },
+    "Person": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "swagger": "2.0"
+}

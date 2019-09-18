@@ -1,0 +1,58 @@
+{
+  "swagger":"2.0",
+  "basePath":"/greeting",
+  "info":{
+    "title":"Greeting service",
+    "version":"2.0.0"
+  },
+  "paths":{
+    "/hello":{
+      "get":{
+        "description":"Returns the hello message",
+        "operationId":"Hello",
+        "responses":{
+          "200":{
+            "description":"success"
+          }
+        },
+        "summary":"Return the hello message.",
+        "produces":["text/plain"]
+      }
+    },
+    "/message":{
+      "get":{
+        "description":"Returns the custom message",
+        "operationId":"GetMessage",
+        "responses":{
+          "200":{
+            "description":"success"
+          }
+        },
+        "summary":"Returns a custom greeting.",
+        "produces":["text/plain"]
+      },
+      "post":{
+        "description":"Updates the custom message",
+        "operationId":"SetMessage",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"success"
+          }
+        },
+        "summary":"Sets a custom greeting.",
+        "consumes":["text/plain"],
+        "produces":["text/plain"]
+      }
+    }
+  }
+}
